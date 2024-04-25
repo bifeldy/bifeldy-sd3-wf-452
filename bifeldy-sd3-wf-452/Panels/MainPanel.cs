@@ -101,7 +101,7 @@ namespace bifeldy_sd3_wf_452.Panels {
 
         public void SetIdleBusyStatus(bool isIdle) {
             _app.IsIdle = isIdle;
-            _application.DebugMode = _app.DebugMode;
+            _application.IsIdle = _app.IsIdle;
             LabelStatus.Text = $"Program {(isIdle ? "Idle" : "Sibuk")} ...";
             ProgressBarStatus.Style = isIdle ? ProgressBarStyle.Continuous : ProgressBarStyle.Marquee;
             EnableDisableControl(Controls, isIdle);
