@@ -25,6 +25,7 @@ namespace bifeldy_sd3_wf_452.Panels {
 
     public sealed partial class CMainPanel : UserControl {
 
+        private readonly IApplication _application;
         private readonly IApp _app;
         private readonly ILogger _logger;
         private readonly IDb _db;
@@ -35,7 +36,14 @@ namespace bifeldy_sd3_wf_452.Panels {
 
         private bool isInitialized = false;
 
-        public CMainPanel(IApp app, ILogger logger, IDb db, IConfig config, IWinReg winreg) {
+        public CMainPanel(
+            IApplication application, IApp app,
+            ILogger logger,
+            IDb db,
+            IConfig config,
+            IWinReg winreg
+        ) {
+            _application = application;
             _app = app;
             _logger = logger;
             _db = db;
@@ -93,6 +101,7 @@ namespace bifeldy_sd3_wf_452.Panels {
 
         public void SetIdleBusyStatus(bool isIdle) {
             _app.IsIdle = isIdle;
+            _application.DebugMode = _app.DebugMode;
             LabelStatus.Text = $"Program {(isIdle ? "Idle" : "Sibuk")} ...";
             ProgressBarStatus.Style = isIdle ? ProgressBarStyle.Continuous : ProgressBarStyle.Marquee;
             EnableDisableControl(Controls, isIdle);
