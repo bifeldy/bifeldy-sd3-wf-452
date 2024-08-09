@@ -111,7 +111,7 @@ namespace bifeldy_sd3_wf_452.Forms {
             try {
                 CDbSelector dbSelector = null;
                 if (!panelContainer.Controls.ContainsKey("CDbSelector")) {
-                    dbSelector = CProgram.Bifeldyz.ResolveClass<CDbSelector>();
+                    dbSelector = CProgram.Bifeldyz.Resolve<CDbSelector>();
                     panelContainer.Controls.Add(dbSelector);
                 }
                 panelContainer.Controls["CDbSelector"].BringToFront();
