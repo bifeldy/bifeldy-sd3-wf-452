@@ -20,7 +20,7 @@ namespace bifeldy_sd3_wf_452.Components {
     public class DataGridViewProgressColumn : DataGridViewImageColumn {
 
         public DataGridViewProgressColumn() {
-            CellTemplate = new DataGridViewProgressCell();
+            this.CellTemplate = new DataGridViewProgressCell();
         }
 
     }

@@ -37,10 +37,10 @@ namespace bifeldy_sd3_wf_452.Utilities {
         public List<string> ListDcCanUse { get; }
 
         public CApp(IConfig config) : base(config) {
-            ScreenWidth = Screen.PrimaryScreen.WorkingArea.Width;
-            ScreenHeight = Screen.PrimaryScreen.WorkingArea.Height;
-            Author = "B. Bias A. Ch. :: bias@indomaret.co.id";
-            ListDcCanUse = new List<string> { /* "HO", "INDUK", "DEPO", "SEWA", "FROZEN", "PERISHABLE", "LPG" */ };
+            this.ScreenWidth = Screen.PrimaryScreen.WorkingArea.Width;
+            this.ScreenHeight = Screen.PrimaryScreen.WorkingArea.Height;
+            this.Author = "B. Bias A. Ch. :: bias@indomaret.co.id";
+            this.ListDcCanUse = new List<string> { /* "HO", "INDUK", "DEPO", "SEWA", "FROZEN", "PERISHABLE", "LPG" */ };
         }
 
         public void Exit() => Application.Exit();

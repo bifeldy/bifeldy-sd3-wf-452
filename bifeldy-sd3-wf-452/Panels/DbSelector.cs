@@ -31,60 +31,64 @@ namespace bifeldy_sd3_wf_452.Panels {
         private bool isInitialized = false;
 
         public CDbSelector(IApplication application, IApp app) {
-            _application = application;
-            _app = app;
+            this._application = application;
+            this._app = app;
 
-            InitializeComponent();
-            OnInit();
+            this.InitializeComponent();
+            this.OnInit();
         }
 
         private void OnInit() {
-            Dock = DockStyle.Fill;
+            this.Dock = DockStyle.Fill;
         }
 
         private void CDbSelector_Load(object sender, EventArgs e) {
-            if (!isInitialized) {
+            if (!this.isInitialized) {
 
-                mainForm = (CMainForm) Parent.Parent;
+                this.mainForm = (CMainForm)this.Parent.Parent;
 
-                isInitialized = true;
+                this.isInitialized = true;
             }
         }
 
         private void ShowCheckProgramPanel() {
-            btnOracle.Enabled = false;
-            btnPostgre.Enabled = false;
+            this.btnOracle.Enabled = false;
+            this.btnPostgre.Enabled = false;
 
             // Create & Show `CekProgram` Panel
             try {
-                if (!mainForm.PanelContainer.Controls.ContainsKey("CCekProgram")) {
-                    mainForm.PanelContainer.Controls.Add(CProgram.Bifeldyz.Resolve<CCekProgram>());
+                CCekProgram cekProgram = null;
+                if (!this.mainForm.PanelContainer.Controls.ContainsKey("CCekProgram")) {
+                    cekProgram = CProgram.Bifeldyz.Resolve<CCekProgram>();
+                    this.mainForm.PanelContainer.Controls.Add(cekProgram);
                 }
-                mainForm.PanelContainer.Controls["CCekProgram"].BringToFront();
+
+                cekProgram = (CCekProgram)this.mainForm.PanelContainer.Controls["CCekProgram"];
+                cekProgram.BringToFront();
             }
             catch (Exception ex) {
-                MessageBox.Show(ex.Message, "Terjadi Kesalahan! (｡>﹏<｡)", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _ = MessageBox.Show(ex.Message, "Terjadi Kesalahan! (｡>﹏<｡)", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void BtnOracle_Click(object sender, EventArgs e) {
-            _app.IsUsingPostgres = false;
-            _application.IsUsingPostgres = _app.IsUsingPostgres;
-            ShowCheckProgramPanel();
+            this._app.IsUsingPostgres = false;
+            this._application.IsUsingPostgres = this._app.IsUsingPostgres;
+            this.ShowCheckProgramPanel();
         }
 
         private void BtnPostgre_Click(object sender, EventArgs e) {
-            _app.IsUsingPostgres = true;
-            _application.IsUsingPostgres = _app.IsUsingPostgres;
-            ShowCheckProgramPanel();
+            this._app.IsUsingPostgres = true;
+            this._application.IsUsingPostgres = this._app.IsUsingPostgres;
+            this.ShowCheckProgramPanel();
         }
 
         public void DchoOnlyBypass(object sender, EventArgs e) {
-            BtnOracle_Click(sender, e);
+            this.BtnOracle_Click(sender, e);
         }
 
         public void AutoRunModeDefaultPostgre(object sender, EventArgs e) {
-            BtnPostgre_Click(sender, e);
+            this.BtnPostgre_Click(sender, e);
         }
 
     }

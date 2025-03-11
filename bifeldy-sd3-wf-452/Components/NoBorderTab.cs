@@ -24,7 +24,7 @@ namespace bifeldy_sd3_wf_452.Components {
         protected override void WndProc(ref Message m) {
 
             // Hide the tab headers at run-time
-            if (m.Msg == TCM_ADJUSTRECT && !DesignMode) {
+            if (m.Msg == TCM_ADJUSTRECT && !this.DesignMode) {
                 m.Result = (IntPtr) 1;
                 return;
             }

@@ -43,68 +43,68 @@ namespace bifeldy_sd3_wf_452.Panels {
             IConfig config,
             IWinReg winreg
         ) {
-            _application = application;
-            _app = app;
-            _logger = logger;
-            _db = db;
-            _config = config;
-            _winreg = winreg;
+            this._application = application;
+            this._app = app;
+            this._logger = logger;
+            this._db = db;
+            this._config = config;
+            this._winreg = winreg;
 
-            InitializeComponent();
-            OnInit();
+            this.InitializeComponent();
+            this.OnInit();
         }
 
-        public Label LabelStatus => lblStatus;
+        public Label LabelStatus => this.lblStatus;
 
-        public ProgressBar ProgressBarStatus => prgrssBrStatus;
+        public ProgressBar ProgressBarStatus => this.prgrssBrStatus;
 
         private void OnInit() {
-            Dock = DockStyle.Fill;
+            this.Dock = DockStyle.Fill;
         }
 
         private void ImgDomar_Click(object sender, EventArgs e) {
-            mainForm.Width = 800;
-            mainForm.Height = 600;
+            this.mainForm.Width = 800;
+            this.mainForm.Height = 600;
         }
 
         private async void CMainPanel_Load(object sender, EventArgs e) {
-            if (!isInitialized) {
+            if (!this.isInitialized) {
 
-                mainForm = (CMainForm) Parent.Parent;
-                mainForm.FormBorderStyle = FormBorderStyle.Sizable;
-                mainForm.MaximizeBox = true;
-                mainForm.MinimizeBox = true;
+                this.mainForm = (CMainForm)this.Parent.Parent;
+                this.mainForm.FormBorderStyle = FormBorderStyle.Sizable;
+                this.mainForm.MaximizeBox = true;
+                this.mainForm.MinimizeBox = true;
 
-                appInfo.Text = _app.AppName;
+                this.appInfo.Text = this._app.AppName;
                 string dcKode = null;
                 string namaDc = null;
                 await Task.Run(async () => {
-                    dcKode = await _db.GetKodeDc();
-                    namaDc = await _db.GetNamaDc();
+                    dcKode = await this._db.GetKodeDc();
+                    namaDc = await this._db.GetNamaDc();
                 });
-                userInfo.Text = $".: {dcKode} - {namaDc} :: {_db.LoggedInUsername} :.";
+                this.userInfo.Text = $".: {dcKode} - {namaDc} :: {this._db.LoggedInUsername} :.";
 
-                bool windowsStartup = _config.Get<bool>("WindowsStartup", bool.Parse(_app.GetConfig("windows_startup")));
-                chkWindowsStartup.Checked = windowsStartup;
+                bool windowsStartup = this._config.Get<bool>("WindowsStartup", bool.Parse(this._app.GetConfig("windows_startup")));
+                this.chkWindowsStartup.Checked = windowsStartup;
 
                 //
                 // TODO :: Here Maybe Some Code ...
                 //
 
-                SetIdleBusyStatus(true);
+                this.SetIdleBusyStatus(true);
 
-                isInitialized = true;
+                this.isInitialized = true;
             }
 
-            SetIdleBusyStatus(_app.IsIdle);
+            this.SetIdleBusyStatus(this._app.IsIdle);
         }
 
         public void SetIdleBusyStatus(bool isIdle) {
-            _app.IsIdle = isIdle;
-            _application.IsIdle = _app.IsIdle;
-            LabelStatus.Text = $"Program {(isIdle ? "Idle" : "Sibuk")} ...";
-            ProgressBarStatus.Style = isIdle ? ProgressBarStyle.Continuous : ProgressBarStyle.Marquee;
-            EnableDisableControl(Controls, isIdle);
+            this._app.IsIdle = isIdle;
+            this._application.IsIdle = this._app.IsIdle;
+            this.LabelStatus.Text = $"Program {(isIdle ? "Idle" : "Sibuk")} ...";
+            this.ProgressBarStatus.Style = isIdle ? ProgressBarStyle.Continuous : ProgressBarStyle.Marquee;
+            this.EnableDisableControl(this.Controls, isIdle);
         }
 
         private void EnableDisableControl(ControlCollection controls, bool isIdle) {
@@ -113,15 +113,15 @@ namespace bifeldy_sd3_wf_452.Panels {
                     control.Enabled = isIdle;
                 }
                 else {
-                    EnableDisableControl(control.Controls, isIdle);
+                    this.EnableDisableControl(control.Controls, isIdle);
                 }
             }
         }
 
         private void ChkWindowsStartup_CheckedChanged(object sender, EventArgs e) {
             CheckBox cb = (CheckBox) sender;
-            _config.Set("WindowsStartup", cb.Checked);
-            _winreg.SetWindowsStartup(cb.Checked);
+            this._config.Set("WindowsStartup", cb.Checked);
+            this._winreg.SetWindowsStartup(cb.Checked);
         }
 
     }

@@ -41,7 +41,7 @@ namespace bifeldy_sd3_wf_452.Handlers {
             IMsSQL mssql,
             ISqlite sqlite
         ) : base(app, config, oracle, postgres, mssql, sqlite) {
-            _app = app;
+            this._app = app;
         }
 
     }
